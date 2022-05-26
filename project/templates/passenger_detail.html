@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+   <br>
+   <br>
+    <h2 class="flight-heading">Enter Passenger Details:</h2>
+    <div class="container">
+    <form method="post">
+        <br>
+        <div class="row">
+          <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Name</span>
+              <input type="text" class="form-control" id="passenger_name" name="passenger_name" aria-label="Username"
+                aria-describedby="basic-addon1" required>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Age</span>
+              <input type="number" class="form-control" id="passenger_age" name="passenger_age" aria-label="Username"
+                aria-describedby="basic-addon1" required>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Gender</span>
+              <select name="passenger_sex" id="passenger_sex" class="form-select form-control" required> 
+                <option disabled selected value>Select Gender</option>  
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <br>
+        <a style="text-decoration: none;" href="{{ url_for('views.passenger_detail_page2') }}"><button type="submit" class="btn btn-grad">Save</button></a>
+      </form>
+    </div>
+
+        <h1 class="passenger-heading">Passenger Details:</h1>
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered display-1">
+                    <thead class="hi">
+                        <tr>
+                            <th class="col-xs-2">Name</th>
+                            <th class="col-xs-2">Age</th>
+                            <th class="col-xs-2">Gender</th>
+                            <th class="col-xs-2">Remove Passenger<th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in passenger %}
+                        <tr>
+                            <td class="col-xs-2">{{ i.name }}</td>
+                            <td class="col-xs-8">{{ i.age }}</td>
+                            <td class="col-xs-2">{{ i.gender }}</td>
+                            <td class="col-xs-2"><a href="/delete_passenger/{{ i.id }}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+                          </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="container">
+            <a style="text-decoration: none;"><button class="btn btn-grad mt-2" data-bs-toggle="modal" data-bs-target="#priceModal">Submit</button></a>
+        </div>
+
+
+<div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="contact-heading modal-title" id="priceModalLabel">Final amount:{{ (booking_details.seats)*flight.price }}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button onclick="location.href = '/payment';" class="btn btn-secondary" data-bs-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+        <!-- Optional JavaScript; choose one of the two! -->
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+
+        <!-- Option 2: Separate Popper and Bootstrap JS -->
+        <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+{% endblock %}
